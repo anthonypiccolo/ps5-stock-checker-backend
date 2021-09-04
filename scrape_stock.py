@@ -1,7 +1,9 @@
 import requests
 import time
+import json
 from datetime import datetime 
 from bs4 import BeautifulSoup
+#from google.cloud import storage
 
 headers = {
         'Access-Control-Allow-Origin': '*',
@@ -32,9 +34,20 @@ def stock_check(url, text_string, div_id=None, div_class=None):
         match = soup.find("div", {"class": f"{div_class}"})
     return match
     
-def amazon_digital_stock():
+def amazon_digital():
     """ Xbox in stock????"""
-    amazon_url = "https://www.amazon.com.au/Microsoft-RRT-00021-Xbox-Series-Console/dp/B08HLW5TDS"
+    amazon_url = "https://www.amazon.com.au/PlayStation-5-Digital-Edition-Console/dp/B08HLWDMFQ"
+    amazon_text_string = "In stock"
+    amazon_div_id = "availability"
+    ##return stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id)
+    if stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id):
+        return True
+    else:
+        return False
+    
+def amazon_disc():
+    """ Xbox in stock????"""
+    amazon_url = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
     amazon_text_string = "In stock"
     amazon_div_id = "availability"
     ##return stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id)
@@ -43,7 +56,17 @@ def amazon_digital_stock():
     else:
         return False
 
-def target_stock():
+def target_digital():
+    """Is PS5 in stock at Target"""
+    target_url = "https://www.target.com.au/p/playstation-reg-5-dualsense-wireless-controller-white/64226194"
+    target_text_string = "Add to basket"
+    target_div_class = "AddCart"
+    if stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
+        return True
+    else:
+        return False
+    
+def target_disc():
     """Is PS5 in stock at Target"""
     target_url = "https://www.target.com.au/p/playstation-reg-5-dualsense-wireless-controller-white/64226194"
     target_text_string = "Add to basket"
@@ -53,23 +76,72 @@ def target_stock():
     else:
         return False
 
-##def bigw_stock():
-##    """Big W PS5 stock"""
-##    bigw_url = 
-##    bigw_text_string = 
-##    bigw_div_class = 
-##    if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
-##        return True
-##    else:
-##        return False
+def bigw_digital():
+    """Big W PS5 stock"""
+    bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
+    bigw_text_string = "blah"
+    bigw_div_class = "ProductAddToCart"
+    
+    if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
+        return True
+    else:
+        return False
+    
+def bigw_disc():
+    """Big W PS5 stock"""
+    bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
+    bigw_text_string = "blah"
+    bigw_div_class = "ProductAddToCart"
+    
+    if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
+        return True
+    else:
+        return False
 
 ##def output_txt(input_text):
 ##    with open ("myfile.txt",'w') as myfile:
 ##        myfile.write(input_text)
 
-#stock = amazon_digital_stock()
-# target = target_stock()
-#print(stock)
-# print(target)
+print(f'{datetime.now()} - Target - {target_stock()}' )
+print(bigw_digital_stock() )
 
-print(target_stock() )
+my_json = {
+    "amazon": {
+    "digital": f"{amazon_digital()}",
+    "disc": f"{amazon_digital()}"
+    },
+
+    "target": {
+    "digital": f"{target_digital()}",
+    "disc": f"{target_disc()}"
+    },
+    
+    "bigw": {
+    "digital": f"{bigw_digital()}",
+    "disc": f"{bigw_disc()}"
+    }
+}
+
+print(json.dumps(my_json))
+
+#service_account_path = os.path.join("/Users/anthony.piccolo/Documents/GitHub/nbamodel/nba-data-keys.json")
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
+
+client = storage.Client()
+bucket = client.get_bucket(const.destination_gcs_bucket)
+
+# Push data to GCS
+    blob = bucket.blob(filename)
+
+    blob.upload_from_string(
+        data_json,
+        content_type='application/json'
+    )
+
+    # Create BQ table from data in bucket
+    client = bigquery.Client()
+    dataset_id = 'ps5_stock_check'
+
+    dataset_ref = client.dataset(dataset_id)
+    job_config = bigquery.LoadJobConfig()
+    job_config.write_disposition = 'WRITE_TRUNCATE'
