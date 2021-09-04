@@ -29,12 +29,12 @@ class MyClient(discord.Client):
 
 client = MyClient()
 # client.run('my token goes here')
-# client.run("ODgzNTk3NjU2NTkxNTg1Mjkw.YTMQcQ.2N5UuE7e6tHtNNVI0JZ2BPoc6C8")
+
 client.run(discordtoken)
 # client.auto_send()
 # client.close()
 
-# bot.run('ODgzNTk3NjU2NTkxNTg1Mjkw.YTMQcQ.2N5UuE7e6tHtNNVI0JZ2BPoc6C8')
+
 
 
 
