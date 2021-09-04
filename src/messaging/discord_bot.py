@@ -6,10 +6,11 @@ from discordtoken import token as dctkn
 # token file looks like this
 # token = "xxxxxtokenherexxxxxx"
 
+# test channel: 883611785968648203
 
 mytoken = dctkn
 
-def notify_discord(discord_message, discord_channel='883611785968648203'):
+def notify_discord(discord_message):
     """ will send a message to a channel the bot is part of"""
     class MyClient(discord.Client):
         async def on_ready(self):
