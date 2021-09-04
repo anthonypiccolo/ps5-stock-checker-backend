@@ -1,6 +1,7 @@
 
 import discord_bot
-
+import throttle
+import time
 
 example_payload = {
         "target": {
@@ -14,11 +15,12 @@ example_payload = {
         "amazon": {
             "disc": None,
             "digital": None
-        },
-        "ebgames": {
-            "disc": None,
-            "digital": None
         }
+        # ,
+        # "ebgames": {
+        #     "disc": None,
+        #     "digital": None
+        # }
     }
 
 
@@ -29,9 +31,10 @@ def create_messages_from_dict(input_dict):
     """
     messages = []
     for key in input_dict:
-        for sku in ["disc","digital"]:
-            if input_dict[key][sku] != None:
-                messages.append(f"PS5 {sku} found at {key}: {input_dict[key][sku]}")
+        if key != "timestamp":  #ignore the data for timestamp on the payload
+            for sku in ["disc","digital"]:
+                if input_dict[key][sku] != None and input_dict[key][sku] != "":
+                    messages.append(f"PS5 {sku} found at {key}: {input_dict[key][sku]}")
     return messages
 
 def message_services(input_dict):
@@ -40,13 +43,22 @@ def message_services(input_dict):
     and messaging
     """
 
-    messages = create_messages_from_dict(input_dict)
+    #check throttle here
+    throttled_dict = throttle.throttle_dict(input_dict)
+    print("throttled_dict")
+    print(throttled_dict)
+    messages = create_messages_from_dict(throttled_dict) #only message data which is let through the throttle
 
     if len(messages)>0:
-        for each_message in messages:
-            discord_bot.notify_discord(each_message)
-            #slack thing here
-            #email here
+        print(f"sending {len(messages)} messages")
+        output_message = '\n'.join(messages)
+        discord_bot.notify_discord(output_message)
+        # for each_message in messages:
+        #     discord_bot.notify_discord(each_message)
+        #     #slack thing here
+        #     #email here
+    else:
+        print("no messages to send.")
 
 
 

@@ -1,14 +1,17 @@
 from os import close
 import discord
+import json
 from discord.enums import ChannelType
-from discordtoken import token as dctkn
+
 
 # token file looks like this
-# token = "xxxxxtokenherexxxxxx"
+with open("/Users/adam/development/ps5-stock-selector-config/.discordtoken", 'r') as dst:
+    dctkn_json = json.load(dst)
+
 
 # test channel: 883611785968648203
 
-mytoken = dctkn
+mytoken = dctkn_json["token"]
 
 def notify_discord(discord_message):
     """ will send a message to a channel the bot is part of"""
@@ -25,6 +28,6 @@ def notify_discord(discord_message):
 
 
     client = MyClient()
-    client.run(dctkn)
+    client.run(mytoken)
 
 # notify_discord("attempting to message all subscribed channels")
