@@ -8,7 +8,7 @@ headers = {
         'Access-Control-Allow-Methods': 'GET',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Max-Age': '3600',
-        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
         'Referer': 'https://www.ozbargain.com.au/'
         }
 
@@ -68,6 +68,8 @@ def target_stock():
 ##        myfile.write(input_text)
 
 #stock = amazon_digital_stock()
-target = target_stock()
+# target = target_stock()
 #print(stock)
-print(target)
+# print(target)
+
+print(target_stock() )
