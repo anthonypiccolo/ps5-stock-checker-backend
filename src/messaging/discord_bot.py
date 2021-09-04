@@ -27,4 +27,4 @@ def notify_discord(discord_message):
     client = MyClient()
     client.run(dctkn)
 
-notify_discord("attempting to message all subscribed channels")
+# notify_discord("attempting to message all subscribed channels")
