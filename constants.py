@@ -1,0 +1,1 @@
+destination_gcs_bucket = 'stock_check'

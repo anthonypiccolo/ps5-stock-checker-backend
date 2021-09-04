@@ -1,9 +1,11 @@
 import requests
 import time
+import os
+import constants as const
 import json
 from datetime import datetime 
 from bs4 import BeautifulSoup
-#from google.cloud import storage
+from google.cloud import storage
 
 headers = {
         'Access-Control-Allow-Origin': '*',
@@ -102,8 +104,8 @@ def bigw_disc():
 ##    with open ("myfile.txt",'w') as myfile:
 ##        myfile.write(input_text)
 
-print(f'{datetime.now()} - Target - {target_stock()}' )
-print(bigw_digital_stock() )
+#print(f'{datetime.now()} - Target - {target_stock()}' )
+#print(bigw_digital_stock() )
 
 my_json = {
     "amazon": {
@@ -124,24 +126,20 @@ my_json = {
 
 print(json.dumps(my_json))
 
-#service_account_path = os.path.join("/Users/anthony.piccolo/Documents/GitHub/nbamodel/nba-data-keys.json")
-#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
+service_account_path = os.path.join("/Users/anthony.piccolo/dev/ps5-stock-checker-backend/ps5-stock-checker-325003-601f476a23ff.json")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
 
 client = storage.Client()
 bucket = client.get_bucket(const.destination_gcs_bucket)
+filename = 'stock_levels' + datetime.now().strftime("%Y%m%d")
 
 # Push data to GCS
-    blob = bucket.blob(filename)
+blob = bucket.blob(filename)
+user_encode_data = json.dumps(my_json, indent=2).encode('utf-8')
 
-    blob.upload_from_string(
-        data_json,
-        content_type='application/json'
+print(user_encode_data)
+
+blob.upload_from_string(
+    json.dumps(my_json).encode,
+    content_type='application/json'
     )
-
-    # Create BQ table from data in bucket
-    client = bigquery.Client()
-    dataset_id = 'ps5_stock_check'
-
-    dataset_ref = client.dataset(dataset_id)
-    job_config = bigquery.LoadJobConfig()
-    job_config.write_disposition = 'WRITE_TRUNCATE'
