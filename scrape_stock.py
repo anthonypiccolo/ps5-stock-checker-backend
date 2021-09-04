@@ -140,6 +140,6 @@ user_encode_data = json.dumps(my_json, indent=2).encode('utf-8')
 print(user_encode_data)
 
 blob.upload_from_string(
-    json.dumps(my_json).encode,
+    json.dumps(user_encode_data).encode,
     content_type='application/json'
     )
