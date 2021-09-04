@@ -1,5 +1,16 @@
-headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+import requests
+import time
+from datetime import datetime 
+from bs4 import BeautifulSoup
 
+headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Max-Age': '3600',
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0',
+        'Referer': 'https://www.ozbargain.com.au/'
+        }
 
 def stock_check(url, text_string, div_id=None, div_class=None):
     """  This function will conduct the scrap on a page
@@ -12,9 +23,9 @@ def stock_check(url, text_string, div_id=None, div_class=None):
     if div_id == None and div_class == None:
         raise Exception("no divid or classid specified") 
     
-    res = requests.get(url, headers=headers)
+    res = requests.get(url, verify=False, headers=headers)
     soup = BeautifulSoup(res.text, "html.parser")
-    output_txt(str(soup))
+    #output_txt(str(soup))
     if div_id != None:
         match = soup.find("div", {"id": f"{div_id}"})
     elif div_class != None:
@@ -23,7 +34,7 @@ def stock_check(url, text_string, div_id=None, div_class=None):
     
 def amazon_digital_stock():
     """ Xbox in stock????"""
-    amazon_url = "https://www.amazon.com.au/Microsoft-RRS-00021-Xbox-Series-Console/dp/B08HLX39DJ"
+    amazon_url = "https://www.amazon.com.au/Microsoft-RRT-00021-Xbox-Series-Console/dp/B08HLW5TDS"
     amazon_text_string = "In stock"
     amazon_div_id = "availability"
     ##return stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id)
@@ -56,8 +67,7 @@ def target_stock():
 ##    with open ("myfile.txt",'w') as myfile:
 ##        myfile.write(input_text)
 
-
-stock = amazon_digital_stock()
+#stock = amazon_digital_stock()
 target = target_stock()
-print(stock)
+#print(stock)
 print(target)
