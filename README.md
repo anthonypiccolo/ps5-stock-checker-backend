@@ -1,6 +1,16 @@
 # ps5-stock-checker-backend
 Scraping PS5 stock level data from major retailers
 
+We're hosting with Firebase because we want to be able to interact with buckets without much fuss as part of the fundamental website. We'll also be using bigquery for analytics on this. 
+
+Services: 
+- GCP/Firebas CloudStorage: Storing our stuff
+- Firebase Hosting with GatsbyJs for react frontend
+- Firebase Cloud Functions for execution
+
+## Environment variables
+
+Environment variables are stored in fireh
 
 
 ## Messaging Connectors
