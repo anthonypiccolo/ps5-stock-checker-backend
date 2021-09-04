@@ -1,12 +1,12 @@
 from os import close
 import discord
-from discordtoken import token as discordtoken
+from discordtoken import token as dctkn
 
 # token file looks like this
 # token = "xxxxxtokenherexxxxxx"
 
 
-mytoken = discordtoken
+mytoken = dctkn
 import discord
 
 
@@ -30,7 +30,7 @@ class MyClient(discord.Client):
 client = MyClient()
 # client.run('my token goes here')
 
-client.run(discordtoken)
+client.run(dctkn)
 # client.auto_send()
 # client.close()
 
