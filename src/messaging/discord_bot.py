@@ -1,5 +1,6 @@
 from os import close
 import discord
+from discord.enums import ChannelType
 from discordtoken import token as dctkn
 
 # token file looks like this
@@ -7,56 +8,22 @@ from discordtoken import token as dctkn
 
 
 mytoken = dctkn
-import discord
+
+def notify_discord(discord_message, discord_channel='883611785968648203'):
+    """ will send a message to a channel the bot is part of"""
+    class MyClient(discord.Client):
+        async def on_ready(self):
+            print('Logged on as {0}!'.format(self.user))
+            for guild in self.guilds:
+                for channel in guild.channels:
+                    if str(channel.type) == 'text':
+                        print(channel.id, channel.type)
+                        mychannel = await client.fetch_channel( channel.id )
+                        await mychannel.send(str(discord_message))                    
+            await client.close()
 
 
+    client = MyClient()
+    client.run(dctkn)
 
-import discord
-
-class MyClient(discord.Client):
-    async def on_ready(self):
-        print('Logged on as {0}!'.format(self.user))
-        channel = await client.fetch_channel('883611786547441746')   #the test channel
-        await channel.send('Ps5 stock found in XYZ')
-        await client.close()
-
-    # async def auto_send():
-    #     channel = await client.fetch_channel('883611785968648203')
-    #     await channel.send('GOOD MORNING!')
-
-    async def on_message(self, message):
-        print('Message from {0.author}: {0.content}'.format(message))
-
-client = MyClient()
-# client.run('my token goes here')
-
-client.run(dctkn)
-# client.auto_send()
-# client.close()
-
-
-
-
-
-
-
-
-
-
-
-# class MyClient(discord.Client):
-#     async def on_ready(self):
-#         print('Logged on as', self.user)
-
-#     async def on_message(self, message):
-#         # don't respond to ourselves
-#         if message.author == self.user:
-#             return
-
-#         if message.content == 'ping':
-#             await message.channel.send('pong')
-
-# client = MyClient()
-# client.run("ODgzNTk3NjU2NTkxNTg1Mjkw.YTMQcQ.2N5UuE7e6tHtNNVI0JZ2BPoc6C8")
-
-# bot.run('ODgzNTk3NjU2NTkxNTg1Mjkw.YTMQcQ.2N5UuE7e6tHtNNVI0JZ2BPoc6C8')
+notify_discord("attempting to message all subscribed channels")
