@@ -1,14 +1,3 @@
-import requests
-import time
-from datetime import datetime 
-from bs4 import BeautifulSoup
-
-bigw_digital = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
-bigw_disc = "https://www.bigw.com.au/product/playstation-5-console/p/124625/"
-target = "https://www.target.com.au/playstation-5"
-amazon_digital = "https://www.amazon.com.au/PlayStation-5-Digital-Edition-Console/dp/B08HLWDMFQ
-amazon_disc = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
-
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
 
@@ -25,48 +14,50 @@ def stock_check(url, text_string, div_id=None, div_class=None):
     
     res = requests.get(url, headers=headers)
     soup = BeautifulSoup(res.text, "html.parser")
-#     match = soup.find("div", {"class": f"{div_class}"})
-    match = soup.find("div", {"class": f"{div_id}"})
-    #badge = soup.find("div", {"class": "ProductBadges"})
-# ?    if match.text includes text string then :
-    return badge
+    output_txt(str(soup))
+    if div_id != None:
+        match = soup.find("div", {"id": f"{div_id}"})
+    elif div_class != None:
+        match = soup.find("div", {"class": f"{div_class}"})
+    return match
     
- 
-def bigw_digital_stock():
-    """ just big w digitical edition """
-    bigw_url= bigw_digital
-    bigw_text_string = "available now!"
-    bigw_div_id
-    
-    my_response =  stock_check(url=bigw_url, text_string= bigw_text_string, div_id=bigw_div_id)
-    if my_response = 'xyz':
-        return true,
-    else:
-        return false
-
 def amazon_digital_stock():
-    """ just digital edition on amazon"""
-    amazon_url = amazon_digital
+    """ Xbox in stock????"""
+    amazon_url = "https://www.amazon.com.au/Microsoft-RRS-00021-Xbox-Series-Console/dp/B08HLX39DJ"
     amazon_text_string = "In stock"
-    amazong_div_id = "availability"
-    return stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazong_div_id)
-    
-    
-    
-stock = stock_check(bigw_digital)
-print(stock.find("https://www.bigw.com.au/medias/sys_master/root/h52/hab/29192821932062.png"))
+    amazon_div_id = "availability"
+    ##return stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id)
+    if stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id):
+        return True
+    else:
+        return False
 
-now = datetime.now()
+def target_stock():
+    """Is PS5 in stock at Target"""
+    target_url = "https://www.target.com.au/p/playstation-reg-5-dualsense-wireless-controller-white/64226194"
+    target_text_string = "Add to basket"
+    target_div_class = "AddCart"
+    if stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
+        return True
+    else:
+        return False
 
-##if stock == "https://www.bigw.com.au/medias/sys_master/root/h52/hab/29192821932062.png"
-##    print(str(now) + ": Still not in stock...")
-##else:
-##    print(str(now) + ": Now in stock!")
+##def bigw_stock():
+##    """Big W PS5 stock"""
+##    bigw_url = 
+##    bigw_text_string = 
+##    bigw_div_class = 
+##    if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
+##        return True
+##    else:
+##        return False
+
+##def output_txt(input_text):
+##    with open ("myfile.txt",'w') as myfile:
+##        myfile.write(input_text)
 
 
-my_json = {
- "amazon_ps5_digital": amazon_digital_stock(),
- "amazon_ps5_disc": 
- 
-    
-}
+stock = amazon_digital_stock()
+target = target_stock()
+print(stock)
+print(target)
