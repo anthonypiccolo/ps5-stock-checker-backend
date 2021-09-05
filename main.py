@@ -62,25 +62,25 @@ def amazon_disc():
     else:
         return ""
 
-def target_digital():
-    """Is PS5 in stock at Target"""
-    target_url = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
-    target_text_string = "Add to basket"
-    target_div_class = "AddCart"
-    if stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
-        return target_url
-    else:
-        return ""
+#def target_digital():
+    #"""Is PS5 in stock at Target"""
+    #target_url = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
+    #target_text_string = "Add to basket"
+    #target_div_class = "AddCart"
+    #if stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
+        #return target_url
+    #else:
+        #return ""
     
-def target_disc():
-    """Is PS5 in stock at Target"""
-    target_url = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
-    target_text_string = "Add to basket"
-    target_div_class = "AddCart"
-    if stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
-        return target_url
-    else:
-        return ""
+#def target_disc():
+    #"""Is PS5 in stock at Target"""
+    #target_url = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
+    #target_text_string = "Add to basket"
+    #target_div_class = "AddCart"
+    #if stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
+        #return target_url
+    #else:
+        #return ""
 
 def bigw_digital():
     """Big W PS5 stock"""
