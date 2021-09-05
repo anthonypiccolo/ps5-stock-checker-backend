@@ -129,8 +129,8 @@ my_json = {
 
 print(json.dumps(my_json))
 
-#service_account_path = os.path.join("")
-#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
+service_account_path = os.path.join("/Users/anthony.piccolo/dev/ps5-stock-checker-backend/ps5-stock-checker-325003-601f476a23ff.json")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
 
 def write_to_bucket(input_bucket, dict_to_write, filename_prefix=None):
     filename = f"{filename_prefix}ps5_stock"
