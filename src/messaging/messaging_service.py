@@ -1,6 +1,6 @@
 
-import discord_bot
-import throttle
+from . import discord_bot
+from . import throttle
 import time
 
 example_payload = {

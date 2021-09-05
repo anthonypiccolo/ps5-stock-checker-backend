@@ -1,4 +1,3 @@
-from os import close
 import discord
 import json
 from discord.enums import ChannelType

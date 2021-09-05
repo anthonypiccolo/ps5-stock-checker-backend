@@ -7,7 +7,7 @@ import json
 from datetime import datetime 
 from bs4 import BeautifulSoup
 from flask import escape
-from messaging import messaging
+from src.messaging import messaging_service
 
 
 
@@ -162,7 +162,7 @@ def now_write_to_bucket(input_json):
     bucket_now = const.destination_gcs_bucket_now
     write_to_bucket(input_bucket=bucket_now, dict_to_write=input_json)
 
-def ps5_stock_check(request):
+def ps5_stock_check(request=None):
     """HTTP Cloud Function.
     Args:
         request (flask.Request): The request object.
@@ -179,4 +179,7 @@ def ps5_stock_check(request):
     historical_write_to_bucket(my_json)
     now_write_to_bucket(my_json)
     print("telling everyone about it...")
-    messaging.message_services()
+    messaging_service.message_services()
+
+
+ps5_stock_check("s")
