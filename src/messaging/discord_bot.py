@@ -2,16 +2,18 @@ from os import close
 import discord
 import json
 from discord.enums import ChannelType
-
+import os
 
 # token file looks like this
-with open("/Users/adam/development/ps5-stock-selector-config/.discordtoken", 'r') as dst:
-    dctkn_json = json.load(dst)
+# with open("/Users/adam/development/ps5-stock-selector-config/.discordtoken", 'r') as dst:
+#     dctkn_json = json.load(dst)
 
+def get_discord_env_var():
+    return os.environ.get('DISCORD_BOT_TOKEN', 'Specified environment variable for the discord bot is not set.')
 
 # test channel: 883611785968648203
 
-mytoken = dctkn_json["token"]
+mytoken = get_discord_env_var()
 
 def notify_discord(discord_message):
     """ will send a message to a channel the bot is part of"""

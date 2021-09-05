@@ -7,6 +7,7 @@ import json
 from datetime import datetime 
 from bs4 import BeautifulSoup
 from flask import escape
+from messaging import messaging
 
 
 
@@ -161,7 +162,7 @@ def now_write_to_bucket(input_json):
     bucket_now = const.destination_gcs_bucket_now
     write_to_bucket(input_bucket=bucket_now, dict_to_write=input_json)
 
-def ps5_stock_check():
+def ps5_stock_check(request):
     """HTTP Cloud Function.
     Args:
         request (flask.Request): The request object.
@@ -171,6 +172,11 @@ def ps5_stock_check():
         Response object using `make_response`
         <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>.
     """
+
+    # we do nothing with the request param. It's just a way to make cloud functions not fall over
+
     my_json = build_json()
     historical_write_to_bucket(my_json)
     now_write_to_bucket(my_json)
+    print("telling everyone about it...")
+    messaging.message_services()
