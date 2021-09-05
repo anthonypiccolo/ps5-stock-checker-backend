@@ -7,7 +7,7 @@ import json
 from datetime import datetime 
 from bs4 import BeautifulSoup
 from flask import escape
-from src.messaging import messaging_service
+# from src.messaging import messaging_service
 
 
 
@@ -178,8 +178,7 @@ def ps5_stock_check(request=None):
     my_json = build_json()
     historical_write_to_bucket(my_json)
     now_write_to_bucket(my_json)
-    print("telling everyone about it...")
-    messaging_service.message_services()
+    # print("telling everyone about it...")
+    # messaging_service.message_services()
 
 
-ps5_stock_check("s")
