@@ -6,6 +6,7 @@ import constants as const
 import json
 from datetime import datetime 
 from bs4 import BeautifulSoup
+from flask import escape
 
 headers = {
         'Access-Control-Allow-Origin': '*',
@@ -27,7 +28,7 @@ def stock_check(url, text_string, div_id=None, div_class=None):
     if div_id == None and div_class == None:
         raise Exception("no divid or classid specified") 
     
-    res = requests.get(url, headers=headers)
+    res = requests.get(url, verify=False, headers=headers)
     soup = BeautifulSoup(res.text, "html.parser")
     #output_txt(str(soup))
     if div_id != None:
