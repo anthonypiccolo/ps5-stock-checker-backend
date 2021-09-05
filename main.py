@@ -162,7 +162,7 @@ def now_write_to_bucket(input_json):
     bucket_now = const.destination_gcs_bucket_now
     write_to_bucket(input_bucket=bucket_now, dict_to_write=input_json)
 
-def ps5_stock_check(request=None):
+def ps5_stock_check(request):
     """HTTP Cloud Function.
     Args:
         request (flask.Request): The request object.
