@@ -1,3 +1,4 @@
+from google.cloud.storage import bucket
 import requests
 import time
 import os
@@ -83,7 +84,6 @@ def bigw_digital():
     bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
     bigw_text_string = "blah"
     bigw_div_class = "ProductAddToCart"
-    
     if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
         return True
     else:
@@ -94,7 +94,6 @@ def bigw_disc():
     bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
     bigw_text_string = "blah"
     bigw_div_class = "ProductAddToCart"
-    
     if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
         return True
     else:
@@ -107,10 +106,14 @@ def bigw_disc():
 #print(f'{datetime.now()} - Target - {target_stock()}' )
 #print(bigw_digital_stock() )
 
+timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+
 my_json = {
+    "timestamp": timestamp,
+    
     "amazon": {
     "digital": f"{amazon_digital()}",
-    "disc": f"{amazon_digital()}"
+    "disc": f"{amazon_disc()}"
     },
 
     "target": {
@@ -126,20 +129,44 @@ my_json = {
 
 print(json.dumps(my_json))
 
-service_account_path = os.path.join("/Users/anthony.piccolo/dev/ps5-stock-checker-backend/ps5-stock-checker-325003-601f476a23ff.json")
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
+#service_account_path = os.path.join("")
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
 
-client = storage.Client()
-bucket = client.get_bucket(const.destination_gcs_bucket)
-filename = 'stock_levels' + datetime.now().strftime("%Y%m%d")
+def write_to_bucket(input_bucket, dict_to_write, filename_prefix=None):
+    filename = f"{filename_prefix}ps5_stock"
+    client = storage.Client()
+    bucket = client.get_bucket(input_bucket)
 
-# Push data to GCS
-blob = bucket.blob(filename)
-user_encode_data = json.dumps(my_json, indent=2).encode('utf-8')
+    # Push data to GCS
+    blob = bucket.blob(filename)
+    user_encode_data = json.dumps(dict_to_write)#.encode('utf-8')
 
-print(user_encode_data)
+    print(user_encode_data)
 
-blob.upload_from_string(
-    json.dumps(user_encode_data).encode,
+    blob.upload_from_string(
+    user_encode_data,
     content_type='application/json'
     )
+
+def historical_write_to_bucket():
+    bucket_historical = const.destination_gcs_bucket_historical
+    my_prefix = f'{datetime.now().strftime("%Y%m%d%H%M%S")}_'
+    write_to_bucket(input_bucket=bucket_historical, dict_to_write=my_json, filename_prefix=my_prefix)
+
+def now_write_to_bucket():
+    bucket_now = const.destination_gcs_bucket_now
+    write_to_bucket(input_bucket=bucket_now, dict_to_write=my_json)
+
+def ps5_stock_check(request):
+    """HTTP Cloud Function.
+    Args:
+        request (flask.Request): The request object.
+        <http://flask.pocoo.org/docs/1.0/api/#flask.Request>
+    Returns:
+        The response text, or any set of values that can be turned into a
+        Response object using `make_response`
+        <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>.
+    """
+
+    historical_write_to_bucket()
+    now_write_to_bucket()
