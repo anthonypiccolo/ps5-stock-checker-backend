@@ -31,4 +31,5 @@ Basically, it activates a bot and the bot will post a message to all channels it
 setup details I found useful: 
 - https://discordpy.readthedocs.io/en/latest/discord.html - bot setup
 - https://discord.com/developers/ - set up a developer team
-- discord package - https://github.com/Rapptz/discord.py
+- https://github.com/Rapptz/discord.py - discord package
+- https://disbotgen.zaytunhub.com/ discord bot invide link builder
