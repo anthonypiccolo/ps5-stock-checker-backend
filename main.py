@@ -121,10 +121,10 @@ def build_json():
         "disc": f"{amazon_disc()}"
         },
 
-        "target": {
-        "digital": f"{target_digital()}",
-        "disc": f"{target_disc()}"
-        },
+        #"target": {
+        #"digital": f"{target_digital()}",
+        #"disc": f"{target_disc()}"
+        #},
         
         "bigw": {
         "digital": f"{bigw_digital()}",
