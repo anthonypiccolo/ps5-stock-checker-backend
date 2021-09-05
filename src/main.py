@@ -1,4 +1,4 @@
-from google.cloud.storage import bucket
+from google.cloud import storage
 import requests
 import time
 import os
@@ -6,7 +6,6 @@ import constants as const
 import json
 from datetime import datetime 
 from bs4 import BeautifulSoup
-from google.cloud import storage
 
 headers = {
         'Access-Control-Allow-Origin': '*',
