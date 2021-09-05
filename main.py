@@ -8,7 +8,17 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 from flask import escape
 
-headers = {
+
+
+def stock_check(url, text_string, div_id=None, div_class=None):
+    """  This function will conduct the scrape on a page
+    look for: 
+    - url
+    - div id or div class or both
+    - text
+    """
+
+    headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET',
         'Access-Control-Allow-Headers': 'Content-Type',
@@ -16,19 +26,11 @@ headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
         'Referer': 'https://www.ozbargain.com.au/'
         }
-
-def stock_check(url, text_string, div_id=None, div_class=None):
-    """  This function will conduct the scrap on a page
-    look for: 
-    - url
-    - div id or div class or both
-    - text
-    """
     
     if div_id == None and div_class == None:
         raise Exception("no divid or classid specified") 
     
-    res = requests.get(url, verify=False, headers=headers)
+    res = requests.get(url, verify=True, headers=headers)
     soup = BeautifulSoup(res.text, "html.parser")
     #output_txt(str(soup))
     if div_id != None:
@@ -44,9 +46,9 @@ def amazon_digital():
     amazon_div_id = "availability"
     ##return stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id)
     if stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id):
-        return True
+        return amazon_url
     else:
-        return False
+        return ""
     
 def amazon_disc():
     """ Xbox in stock????"""
@@ -55,9 +57,9 @@ def amazon_disc():
     amazon_div_id = "availability"
     ##return stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id)
     if stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id):
-        return True
+        return amazon_url
     else:
-        return False
+        return ""
 
 def target_digital():
     """Is PS5 in stock at Target"""
@@ -65,9 +67,9 @@ def target_digital():
     target_text_string = "Add to basket"
     target_div_class = "AddCart"
     if stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
-        return True
+        return target_url
     else:
-        return False
+        return ""
     
 def target_disc():
     """Is PS5 in stock at Target"""
@@ -75,9 +77,9 @@ def target_disc():
     target_text_string = "Add to basket"
     target_div_class = "AddCart"
     if stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
-        return True
+        return target_url
     else:
-        return False
+        return ""
 
 def bigw_digital():
     """Big W PS5 stock"""
@@ -85,9 +87,9 @@ def bigw_digital():
     bigw_text_string = "blah"
     bigw_div_class = "ProductAddToCart"
     if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
-        return True
+        return bigw_url
     else:
-        return False
+        return ""
     
 def bigw_disc():
     """Big W PS5 stock"""
@@ -95,9 +97,9 @@ def bigw_disc():
     bigw_text_string = "blah"
     bigw_div_class = "ProductAddToCart"
     if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
-        return True
+        return bigw_url
     else:
-        return False
+        return ""
 
 ##def output_txt(input_text):
 ##    with open ("myfile.txt",'w') as myfile:
@@ -106,31 +108,33 @@ def bigw_disc():
 #print(f'{datetime.now()} - Target - {target_stock()}' )
 #print(bigw_digital_stock() )
 
-timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 
-my_json = {
-    "timestamp": timestamp,
-    
-    "amazon": {
-    "digital": f"{amazon_digital()}",
-    "disc": f"{amazon_disc()}"
-    },
+def build_json():
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
 
-    "target": {
-    "digital": f"{target_digital()}",
-    "disc": f"{target_disc()}"
-    },
-    
-    "bigw": {
-    "digital": f"{bigw_digital()}",
-    "disc": f"{bigw_disc()}"
+    my_json = {
+        "timestamp": timestamp,
+        
+        "amazon": {
+        "digital": f"{amazon_digital()}",
+        "disc": f"{amazon_disc()}"
+        },
+
+        "target": {
+        "digital": f"{target_digital()}",
+        "disc": f"{target_disc()}"
+        },
+        
+        "bigw": {
+        "digital": f"{bigw_digital()}",
+        "disc": f"{bigw_disc()}"
+        }
     }
-}
+    return my_json
+    # print(json.dumps(my_json))
 
-print(json.dumps(my_json))
-
-service_account_path = os.path.join("/Users/anthony.piccolo/dev/ps5-stock-checker-backend/ps5-stock-checker-325003-601f476a23ff.json")
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
+#service_account_path = os.path.join("")
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_path
 
 def write_to_bucket(input_bucket, dict_to_write, filename_prefix=None):
     filename = f"{filename_prefix}ps5_stock"
@@ -148,16 +152,16 @@ def write_to_bucket(input_bucket, dict_to_write, filename_prefix=None):
     content_type='application/json'
     )
 
-def historical_write_to_bucket():
+def historical_write_to_bucket(input_json):
     bucket_historical = const.destination_gcs_bucket_historical
     my_prefix = f'{datetime.now().strftime("%Y%m%d%H%M%S")}_'
-    write_to_bucket(input_bucket=bucket_historical, dict_to_write=my_json, filename_prefix=my_prefix)
+    write_to_bucket(input_bucket=bucket_historical, dict_to_write=input_json, filename_prefix=my_prefix)
 
-def now_write_to_bucket():
+def now_write_to_bucket(input_json):
     bucket_now = const.destination_gcs_bucket_now
-    write_to_bucket(input_bucket=bucket_now, dict_to_write=my_json)
+    write_to_bucket(input_bucket=bucket_now, dict_to_write=input_json)
 
-def ps5_stock_check(request):
+def ps5_stock_check():
     """HTTP Cloud Function.
     Args:
         request (flask.Request): The request object.
@@ -167,6 +171,6 @@ def ps5_stock_check(request):
         Response object using `make_response`
         <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>.
     """
-
-    historical_write_to_bucket()
-    now_write_to_bucket()
+    my_json = build_json()
+    historical_write_to_bucket(my_json)
+    now_write_to_bucket(my_json)
