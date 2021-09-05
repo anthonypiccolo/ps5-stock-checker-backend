@@ -2,7 +2,7 @@
 discord.py==1.7.3            # discord dependencies
 requests
 bs4
-constants
+#constants
 google-cloud-storage
 #google-cloud-bigquery
 lxml
