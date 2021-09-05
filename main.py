@@ -178,6 +178,7 @@ def ps5_stock_check(request):
     my_json = build_json()
     historical_write_to_bucket(my_json)
     now_write_to_bucket(my_json)
+    return 'ok', 200
     # print("telling everyone about it...")
     # messaging_service.message_services()
 
