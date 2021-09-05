@@ -1,2 +1,11 @@
 
 discord.py==1.7.3            # discord dependencies
+requests
+bs4
+constants
+google-cloud-storage
+#google-cloud-bigquery
+lxml
+flask
+datetime
+firebase_admin
