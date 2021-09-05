@@ -82,25 +82,25 @@ def amazon_disc():
     #else:
         #return ""
 
-def bigw_digital():
-    """Big W PS5 stock"""
-    bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
-    bigw_text_string = "blah"
-    bigw_div_class = "ProductAddToCart"
-    if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
-        return bigw_url
-    else:
-        return ""
+#def bigw_digital():
+    #"""Big W PS5 stock"""
+    #bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
+    #bigw_text_string = "blah"
+    #bigw_div_class = "ProductAddToCart"
+    #if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
+        #return bigw_url
+    #else:
+        #return ""
     
-def bigw_disc():
-    """Big W PS5 stock"""
-    bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
-    bigw_text_string = "blah"
-    bigw_div_class = "ProductAddToCart"
-    if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
-        return bigw_url
-    else:
-        return ""
+#def bigw_disc():
+    #"""Big W PS5 stock"""
+    #bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
+    #bigw_text_string = "blah"
+    #bigw_div_class = "ProductAddToCart"
+    #if stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
+        #return bigw_url
+    #else:
+        #return ""
 
 ##def output_txt(input_text):
 ##    with open ("myfile.txt",'w') as myfile:
@@ -119,17 +119,17 @@ def build_json():
         "amazon": {
         "digital": f"{amazon_digital()}",
         "disc": f"{amazon_disc()}"
-        },
+        }
 
         #"target": {
         #"digital": f"{target_digital()}",
         #"disc": f"{target_disc()}"
         #},
         
-        "bigw": {
-        "digital": f"{bigw_digital()}",
-        "disc": f"{bigw_disc()}"
-        }
+        #"bigw": {
+        #"digital": f"{bigw_digital()}",
+        #"disc": f"{bigw_disc()}"
+        #}
     }
     return my_json
     # print(json.dumps(my_json))
