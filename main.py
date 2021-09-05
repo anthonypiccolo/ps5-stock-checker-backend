@@ -31,7 +31,7 @@ def stock_check(url, text_string, div_id=None, div_class=None):
     if div_id == None and div_class == None:
         raise Exception("no divid or classid specified") 
     
-    res = requests.get(url, verify=True, headers=headers)
+    res = requests.get(url, verify=True, headers=headers, timeout=5)
     soup = BeautifulSoup(res.text, "html.parser")
     #output_txt(str(soup))
     if div_id != None:
