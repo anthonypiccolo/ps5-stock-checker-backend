@@ -1,11 +1,14 @@
 
 discord.py==1.7.3            # discord dependencies
-requests
-bs4
+requests  # no longer needed if we're using selenium
+bs4  #no longer needed if we're using selenium
 #constants
 google-cloud-storage
 #google-cloud-bigquery
-lxml
-flask
+lxml   #not sure if needed
+flask  #not needed
 datetime
 firebase_admin
+selenium==2.53.0 
+chromedriver-binary==2.37.0
+

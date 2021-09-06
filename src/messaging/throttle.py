@@ -1,12 +1,17 @@
 
 import time
+import json
 import copy
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 
-# local creds
-cred = credentials.Certificate("/Users/adam/development/ps5-stock-selector-config/ps5-stock-selector-firebase.json")
+
+def get_firestore_env_var():
+    json_content =  os.environ.get('FIRESTORE_APPLICATION_CREDENTIALS', 'Specified environment variable for the firestore is not set.')
+    json_dict = json.loads(json_content)
+    return json_dict
+cred = credentials.Certificate(get_firestore_env_var() )
 firebase_admin.initialize_app(cred)
 
 def throttle_check_store_sku(store_sku):
