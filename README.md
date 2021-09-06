@@ -8,9 +8,6 @@ Services:
 - Firebase Hosting with GatsbyJs for react frontend
 - Firebase Cloud Functions for execution
 
-## Environment variables
-
-Environment variables are stored in fireh
 
 
 ## Messaging Connectors
@@ -33,3 +30,29 @@ setup details I found useful:
 - https://discord.com/developers/ - set up a developer team
 - https://github.com/Rapptz/discord.py - discord package
 - https://disbotgen.zaytunhub.com/ discord bot invide link builder
+
+
+## Environment Variables
+
+### locally
+
+when running locally, you'll need to create a `.env` file in your project root. 
+You can paste the following in:
+
+```
+# environment variables defined inside a .env file
+# use this as a template and put it in your root directory as a .env
+
+FIRESTORE_PROJECT_ID=<firestore project name here>
+GOOGLE_APPLICATION_CREDENTIALS=<credentials here>
+
+# messaging specific
+
+DISCORD_BOT_TOKEN=<discord bot token here> 
+```
+
+### in GCP
+
+if we're using GCP cloudfunctions, you can add the the environment variables when deploying the instance via the console. 
+
+_NOTE_ There's probably a way to do this via the cli. We should look into this.
