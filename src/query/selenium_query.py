@@ -1,7 +1,7 @@
 from selenium import webdriver
 import chromedriver_binary
 
-def request_with_selenium(url, text_string=None, div_id=None, div_class=None):
+def stock_check(url, text_string=None, div_id=None, div_class=None):
     """ use headless browser"""
 
     #pip install selenium==2.53.0 
@@ -15,8 +15,14 @@ def request_with_selenium(url, text_string=None, div_id=None, div_class=None):
     driver.get(url)
     
     if div_id != None:
-        match = driver.find_element_by_id(div_id).text
+        try:
+            match = driver.find_element_by_id(div_id).text
+        except:
+            match = None
     elif div_class != None:
-        match = driver.find_element_by_class_name(div_class).text
+        try:
+            match = driver.find_element_by_class_name(div_class).text
+        except:
+            match = None
     # driver.quit()
     return match

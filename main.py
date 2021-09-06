@@ -5,7 +5,7 @@ import constants as const
 import json
 from datetime import datetime 
 from src.query import selenium_query as query_engine
-# from src.messaging import messaging_service
+from src.messaging import messaging_service
 
 
 
@@ -62,7 +62,7 @@ def amazon_disc():
 
 def target_digital():
     """Is PS5 digital edition in stock at Target"""
-    target_url = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
+    target_url = "https://www.target.com.au/p/playstation-reg-5-console-digital-edition/64226170"
     target_text_string = "Add to basket"
     target_div_class = "AddCart"
     if query_engine.stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
@@ -72,7 +72,7 @@ def target_digital():
     
 def target_disc():
     """Is PS5  disc edition in stock at Target"""
-    target_url = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
+    target_url = "https://www.target.com.au/p/playstation-reg-5-console/64226187"
     target_text_string = "Add to basket"
     target_div_class = "AddCart"
     if query_engine.stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
@@ -170,9 +170,10 @@ def ps5_stock_check(request):
     historical_write_to_bucket(my_json)
     now_write_to_bucket(my_json)
 
-    return 'ok', 200
-    
     # print("telling everyone about it...")
-    # messaging_service.message_services()
+    # messaging_service.message_services(my_json)
+    return 'ok', 200
+
+    
 
 
