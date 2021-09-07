@@ -24,5 +24,5 @@ def stock_check(url, text_string=None, div_id=None, div_class=None):
             match = driver.find_element_by_class_name(div_class).text
         except:
             match = None
-    # driver.quit()
+    driver.quit()
     return match

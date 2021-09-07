@@ -5,7 +5,7 @@ import constants as const
 import json
 from datetime import datetime 
 from src.query import selenium_query as query_engine
-from src.messaging import messaging_service
+#rom src.messaging import messaging_service
 
 
 
@@ -167,8 +167,8 @@ def ps5_stock_check(request):
     # we do nothing with the request param. It's just a way to make cloud functions not fall over
 
     my_json = build_json()
-    historical_write_to_bucket(my_json)
-    now_write_to_bucket(my_json)
+    #historical_write_to_bucket(my_json)
+    #now_write_to_bucket(my_json)
 
     # print("telling everyone about it...")
     # messaging_service.message_services(my_json)
@@ -176,4 +176,4 @@ def ps5_stock_check(request):
 
     
 
-
+ps5_stock_check('hello')
