@@ -2,13 +2,17 @@ import discord
 import json
 from discord.enums import ChannelType
 import os
+from dotenv import load_dotenv
+load_dotenv() 
 
 # token file looks like this
 # with open("/Users/adam/development/ps5-stock-selector-config/.discordtoken", 'r') as dst:
 #     dctkn_json = json.load(dst)
 
 def get_discord_env_var():
-    return os.environ.get('DISCORD_BOT_TOKEN', 'Specified environment variable for the discord bot is not set.')
+    discord_token =  os.environ.get('DISCORD_BOT_TOKEN', 'Specified environment variable for the discord bot is not set.')
+    print(discord_token)
+    return discord_token
 
 # test channel: 883611785968648203
 
