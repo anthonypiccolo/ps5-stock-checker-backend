@@ -4,7 +4,8 @@ import os
 import constants as const
 import json
 from datetime import datetime 
-from src.query import selenium_query as query_engine
+# from src.query import selenium_query as query_engine
+from src.query import query_engine
 #rom src.messaging import messaging_service
 
 
