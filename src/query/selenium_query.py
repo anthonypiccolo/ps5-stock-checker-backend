@@ -1,6 +1,9 @@
+from os import curdir
 from selenium import webdriver
-from chromedriver_py import binary_path
+# from chromedriver_py import binary_path
 import time
+import pathlib
+
 
 def stock_check(url, text_string=None, div_id=None, div_class=None):
     """ use headless browser"""
@@ -13,7 +16,11 @@ def stock_check(url, text_string=None, div_id=None, div_class=None):
     
     # chrome_options.add_argument('--window-size={}x{}'.format(1280, 1024))
     # chrome_options.add_argument(f'--executable_path={binary_path}')
+    
+    current_dir = pathlib.Path(__file__).parent.resolve()
 
+    binary_path = f"{current_dir}/chromedriver_linux64"
+    print(binary_path)
     
     driver = webdriver.Chrome(executable_path=binary_path)
     # driver = webdriver.Chrome(chrome_options=chrome_options)
@@ -35,3 +42,4 @@ def stock_check(url, text_string=None, div_id=None, div_class=None):
     return match
 
 
+stock_check('https://www.google.com')
