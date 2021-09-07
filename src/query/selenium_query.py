@@ -35,4 +35,3 @@ def stock_check(url, text_string=None, div_id=None, div_class=None):
     return match
 
 
-stock_check('https://google.com')

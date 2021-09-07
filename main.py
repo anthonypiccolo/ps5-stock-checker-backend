@@ -176,4 +176,4 @@ def ps5_stock_check(request):
 
     
 
-ps5_stock_check('hello')
+# ps5_stock_check('hello')
