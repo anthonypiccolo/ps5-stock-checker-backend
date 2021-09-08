@@ -128,5 +128,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#discordtoken
+# Discord token
 discordtoken.py
+
+# MacOS
+.DS_Store
