@@ -56,3 +56,11 @@ DISCORD_BOT_TOKEN=<discord bot token here>
 if we're using GCP cloudfunctions, you can add the the environment variables when deploying the instance via the console. 
 
 _NOTE_ There's probably a way to do this via the cli. We should look into this.
+
+## To launch locally via Docker
+
+```bash
+#build the image from a Dockerfile
+docker build - < Dockerfile
+
+```

@@ -4,8 +4,8 @@ import os
 import constants as const
 import json
 from datetime import datetime 
-# from src.query import selenium_query as query_engine
-from src.query import query_engine
+from src.query import selenium_query as query_engine
+# from src.query import query_engine
 #rom src.messaging import messaging_service
 
 
@@ -41,6 +41,7 @@ from src.query import query_engine
     
 def amazon_digital():
     """ Is PS5 digital edition in stock at Amazon """
+    print("amazon digital")
     amazon_url = "https://www.amazon.com.au/PlayStation-5-Digital-Edition-Console/dp/B08HLWDMFQ"
     amazon_text_string = "In stock"
     amazon_div_id = "availability"
@@ -52,6 +53,7 @@ def amazon_digital():
     
 def amazon_disc():
     """ Is PS5  disc edition in stock at Amazon """
+    print("amazon disc")
     amazon_url = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
     amazon_text_string = "In stock"
     amazon_div_id = "availability"
@@ -164,17 +166,21 @@ def ps5_stock_check(request):
         Response object using `make_response`
         <http://flask.pocoo.org/docs/1.0/api/#flask.Flask.make_response>.
     """
+    try: 
+        # we do nothing with the request param. It's just a way to make cloud functions not fall over
+        print("looking for ps5s...")
+        my_json = build_json()
+        print(my_json)
+        #historical_write_to_bucket(my_json)
+        #now_write_to_bucket(my_json)
 
-    # we do nothing with the request param. It's just a way to make cloud functions not fall over
-
-    my_json = build_json()
-    #historical_write_to_bucket(my_json)
-    #now_write_to_bucket(my_json)
-
-    # print("telling everyone about it...")
-    # messaging_service.message_services(my_json)
-    return 'ok', 200
+        # print("telling everyone about it...")
+        # messaging_service.message_services(my_json)
+        return 'ok', 200
+    except Exception as e:
+        print(e)
+        return 'error', 500
 
     
 
-# ps5_stock_check('hello')
+ps5_stock_check('Looking for ps5s...')

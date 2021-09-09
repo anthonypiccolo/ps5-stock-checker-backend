@@ -45,13 +45,16 @@ ENV DISPLAY=:99
 #####################
 ### app install ###
 #####################
-
+RUN mkdir app
 COPY . /app
 WORKDIR /app
 
 RUN pip install --upgrade pip
 
-RUN pip install -r requirements.txt
+RUN echo "Getting list of location"
+RUN echo ls
+
+RUN pip install -r /app/requirements.txt
 
 # CMD ["python", "./app.py"]
 
@@ -61,7 +64,7 @@ RUN pip install -r requirements.txt
 #####
 
 # Install Cron so we can set up a cron job
-RUN apt-get install cron
+RUN apt-get install -y cron
 
 #create the cron job to run every minute
 RUN crontab -l | { cat; echo "* * * * * python ./main.py"; } | crontab -
