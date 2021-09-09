@@ -27,6 +27,9 @@ RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable 
 # Updating apt to see and install Google Chrome
 RUN apt-get -y update
 
+# Install Cron so we can set up a cron job
+RUN apt-get install -y cron
+
 # Magic happens
 RUN apt-get install -y google-chrome-stable
 
@@ -59,9 +62,6 @@ RUN pip install -r requirements.txt
 ######
 ### Setup Cron job ###
 #####
-
-# Install Cron so we can set up a cron job
-RUN apt-get install cron
 
 #create the cron job to run every minute
 RUN crontab -l | { cat; echo "* * * * * python ./main.py"; } | crontab -
