@@ -17,12 +17,12 @@ name: Build and Deploy to Google Compute Engine
 on:
   push:
     branches:
-    - master
+    - main
 
 env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
   GCE_INSTANCE: gce-githubactions-vm  # TODO: update to instance name
-  GCE_INSTANCE_ZONE: us-central1-a   # TODO: update to instance zone
+  GCE_INSTANCE_ZONE: us-west1-a    # TODO: update to instance zone
 
 jobs:
   setup-build-publish-deploy:
@@ -59,6 +59,7 @@ jobs:
       run: |-
         gcloud compute instances create-with-container "$GCE_INSTANCE" \
           --zone "$GCE_INSTANCE_ZONE" \
+          --machine-type "e2-micro" \
           --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
     # gcloud compute instances update-container "$GCE_INSTANCE" \
     #   --zone "$GCE_INSTANCE_ZONE" \
