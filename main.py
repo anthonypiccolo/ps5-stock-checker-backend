@@ -4,8 +4,8 @@ import os
 import constants as const
 import json
 from datetime import datetime 
-# from src.query import selenium_query as query_engine
-from src.query import query_engine
+from src.query import selenium_query as query_engine
+#from src.query import query_engine
 #rom src.messaging import messaging_service
 
 
@@ -176,5 +176,4 @@ def ps5_stock_check(request):
     return 'ok', 200
 
     
-
-# ps5_stock_check('hello')
+ps5_stock_check()
