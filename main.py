@@ -168,10 +168,10 @@ def ps5_stock_check(request):
     # we do nothing with the request param. It's just a way to make cloud functions not fall over
 
     my_json = build_json()
-    #historical_write_to_bucket(my_json)
-    #now_write_to_bucket(my_json)
+    historical_write_to_bucket(my_json)
+    now_write_to_bucket(my_json)
 
-    # print("telling everyone about it...")
+    print("PS5 stock check completed! :D")
     # messaging_service.message_services(my_json)
     return 'ok', 200
 
