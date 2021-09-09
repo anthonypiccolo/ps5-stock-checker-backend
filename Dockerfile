@@ -48,13 +48,16 @@ ENV DISPLAY=:99
 #####################
 ### app install ###
 #####################
-
+RUN mkdir app
 COPY . /app
 WORKDIR /app
 
 RUN pip install --upgrade pip
 
-RUN pip install -r requirements.txt
+RUN echo "Getting list of location"
+RUN echo ls
+
+RUN pip install -r /app/requirements.txt
 
 # CMD ["python", "./app.py"]
 
