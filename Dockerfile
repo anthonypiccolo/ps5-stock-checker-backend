@@ -67,6 +67,10 @@ RUN pip install -r /app/requirements.txt
 #####
 
 #create the cron job to run every minute
-RUN crontab -l | { cat; echo "* * * * * python ./main.py"; } | crontab -
+RUN crontab -l | { cat; echo "* * * * * python /app/main.py"; } | crontab -
+# RUN crontab -l | { cat; echo "* * * * * echo hello > /app/hello.txt"; } | crontab -
+#start the service 
+RUN service cron start
+
 
 RUN echo "setup complete. Launched scraper"
