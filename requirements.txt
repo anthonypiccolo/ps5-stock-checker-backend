@@ -10,6 +10,6 @@ google-cloud-storage
 datetime
 firebase-admin==5.0.2
 selenium==2.53.0 
-# chromedriver-binary==2.37.0
+chromedriver-binary==2.37.0
 chromedriver-py
 python-dotenv==0.19.0
