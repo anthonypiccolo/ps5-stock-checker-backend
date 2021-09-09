@@ -1,9 +1,25 @@
 from os import curdir
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 # from chromedriver_py import binary_path
 import time
 import pathlib
+import math, random
 
+# def random_time(start=0,end=500):
+#     """ return a random number so we can look more organic for requests """
+#     rand_number_ms = random.randrange(start,end)
+#     rand_number_secs = rand_number_ms/100
+#     return rand_number_secs
+
+
+def set_chrome_settings():
+    """ set up the chrome settings """
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    return chrome_options
 
 def stock_check(url, text_string=None, div_id=None, div_class=None):
     """ use headless browser"""
@@ -14,16 +30,7 @@ def stock_check(url, text_string=None, div_id=None, div_class=None):
     
     # chrome_options = webdriver.ChromeOptions()
     
-    # chrome_options.add_argument('--window-size={}x{}'.format(1280, 1024))
-    # chrome_options.add_argument(f'--executable_path={binary_path}')
-    
-    current_dir = pathlib.Path(__file__).parent.resolve()
-
-    binary_path = f"{current_dir}/chromedriver_linux64"
-    print(binary_path)
-    
-    driver = webdriver.Chrome(executable_path=binary_path)
-    # driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome(chrome_options=set_chrome_settings())
     driver.get(url)
     match = None
     if div_id != None:
