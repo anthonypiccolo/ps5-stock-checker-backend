@@ -57,7 +57,7 @@ jobs:
 
     - name: Deploy
       run: |-
-        gcloud compute instances update-container "$GCE_INSTANCE" \
+        gcloud compute instances create-with-container "$GCE_INSTANCE" \
         --zone "$GCE_INSTANCE_ZONE" \
         --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
 
@@ -66,3 +66,7 @@ jobs:
   #  --zone "$GCE_INSTANCE_ZONE" \
   # --machine-type "e2-micro" \
   # --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
+
+        #   gcloud compute instances update-container "$GCE_INSTANCE" \
+        # --zone "$GCE_INSTANCE_ZONE" \
+        # --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
