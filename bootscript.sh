@@ -52,6 +52,8 @@ mkdir /app
 #git clone https://github.com/anthonypiccolo/ps5-stock-checker-backend /app
 git clone --branch VM_cloudcompute https://github.com/anthonypiccolo/ps5-stock-checker-backend/tree/VM_cloudcompute /app
 
+apt install -y python3-pip
+
 pip3 install --upgrade pip
 pip3 install -r /app/requirements.txt
 
