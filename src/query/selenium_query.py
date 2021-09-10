@@ -2,7 +2,7 @@ from os import curdir
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 # from chromedriver_py import binary_path
-import chromedriver_binary
+# import chromedriver_binary
 import time
 import pathlib
 import math, random
