@@ -18,8 +18,11 @@ def set_chrome_settings():
     """ set up the chrome settings """
     chrome_options = Options()
     chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--window-size=1920,1200")
+    
     return chrome_options
 
 def stock_check(url, text_string=None, div_id=None, div_class=None):

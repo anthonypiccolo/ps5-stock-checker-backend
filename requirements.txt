@@ -1,5 +1,5 @@
 
-discord.py==1.7.3            # discord dependencies
+# discord.py==1.7.3          # discord dependencies
 # requests  # no longer needed if we're using selenium
 # bs4  #no longer needed if we're using selenium
 #constants
@@ -9,8 +9,9 @@ google-cloud-storage
 # flask  #not needed
 datetime
 firebase-admin==5.0.2
-selenium==2.53.0 
+# selenium==2.53.0 
 # chromedriver-binary==2.37.0
-chromedriver-py
+# chromedriver-py
 python-dotenv==0.19.0
-selenium-driver-updater==5.0.4
+# selenium-driver-updater==5.0.4
+selenium

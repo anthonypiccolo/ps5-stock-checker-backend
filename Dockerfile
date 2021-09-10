@@ -19,10 +19,10 @@ FROM python:3.8
 #####################
 
 # Adding trusting keys to apt for repositories
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 
 # Adding Google Chrome to the repositories
-RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+# RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 
 # Updating apt to see and install Google Chrome
 RUN apt-get -y update
@@ -30,8 +30,14 @@ RUN apt-get -y update
 # Install Cron so we can set up a cron job
 RUN apt-get install -y cron
 
+RUN apt install -y python3-pip
+
 # Magic happens
-RUN apt-get install -y google-chrome-stable
+# RUN apt-get install -y google-chrome-stable
+# RUN apt install -y chromium-browser
+RUN apt-get install chromium -y 
+#debian based image
+
 
 # Installing Unzip
 # RUN apt-get install -yqq unzip
@@ -39,7 +45,7 @@ RUN apt-get install -yqq unzip curl
 
 
 # Download the Chrome Driver
-RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
+RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_90`/chromedriver_linux64.zip
 RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 
 # Set display port as an environment variable
@@ -52,15 +58,14 @@ RUN mkdir app
 COPY . /app
 WORKDIR /app
 
-RUN pip install --upgrade pip
+RUN pip3 install --upgrade pip
 
 RUN echo "Getting list of location"
-RUN echo ls
+RUN ls
 
-RUN pip install -r /app/requirements.txt
+RUN pip3 install -r /app/requirements.txt
 
 # CMD ["python", "./app.py"]
-
 
 ######
 ### Setup Cron job ###

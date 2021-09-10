@@ -61,6 +61,12 @@ _NOTE_ There's probably a way to do this via the cli. We should look into this.
 
 ```bash
 #build the image from a Dockerfile
-docker build - < Dockerfile
+docker build -t ps5-stock-checker .
 
 ```
+
+
+### startup
+
+compatibility matrix for selenium
+https://support.leapwork.com/hc/en-us/articles/360004941392-Web-Browser-and-Driver-Compatibility-Matrix-LEAPWORK
