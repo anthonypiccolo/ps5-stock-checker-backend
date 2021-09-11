@@ -46,7 +46,9 @@ jobs:
         gcloud compute instances create "$GCE_INSTANCE" \
         --zone "$GCE_INSTANCE_ZONE" \
         --machine-type "e2-micro" \
-        --metadata-from-file startup-script=bootscript.sh
+        --metadata-from-file startup-script=bootscript.sh \
+        --image=ubuntu-1804-bionic-v20210825 \
+        --image-project=ubuntu-os-cloud
         
 
       # gcloud compute instances update-container "$GCE_INSTANCE" \
