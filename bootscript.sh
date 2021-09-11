@@ -58,7 +58,7 @@ git clone https://github.com/anthonypiccolo/ps5-stock-checker-backend /app
 apt install -y python3-pip
 
 pip install --upgrade pip
-pip install  --ignore-installed -r /app/requirements.txt
+pip install --ignore-installed /app/requirements.txt
 
 
 
@@ -70,7 +70,10 @@ pip install  --ignore-installed -r /app/requirements.txt
 #create the cron job to run every minute
 # crontab -l | { cat; echo "* * * * * python3 /app/main.py"; } | crontab -
 chmod +x /app/cron_execute.sh
-crontab -l | { cat; echo "* * * * * /app/cron_execute.sh >> /app/out.txt  2>&1"; } | crontab -
+#every minute
+# crontab -l | { cat; echo "* * * * * /app/cron_execute.sh >> /app/out.txt  2>&1"; } | crontab -
+#every 2nd minute between 8am-7pm
+crontab -l | { cat; echo "*/2 8-19 * * * /app/cron_execute.sh >> /app/out.txt  2>&1"; } | crontab -
 
 
 #start the service 
