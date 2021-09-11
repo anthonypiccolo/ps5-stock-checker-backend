@@ -57,8 +57,8 @@ git clone https://github.com/anthonypiccolo/ps5-stock-checker-backend /app
 
 apt install -y python3-pip
 
-pip install --upgrade pip
-pip install --ignore-installed /app/requirements.txt
+pip3 install --upgrade pip
+pip3 install --ignore-installed -r /app/requirements.txt
 
 
 
