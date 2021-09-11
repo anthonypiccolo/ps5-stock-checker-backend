@@ -59,7 +59,12 @@ jobs:
       run: |-
         gcloud compute instances create-with-container "$GCE_INSTANCE" \
         --zone "$GCE_INSTANCE_ZONE" \
+        --machine-type "e2-micro" \
         --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
+
+      # gcloud compute instances update-container "$GCE_INSTANCE" \
+      # --zone "$GCE_INSTANCE_ZONE" \
+      # --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
 
 
   #  gcloud compute instances create-with-container "$GCE_INSTANCE" \
@@ -67,6 +72,7 @@ jobs:
   # --machine-type "e2-micro" \
   # --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
 
-        #   gcloud compute instances update-container "$GCE_INSTANCE" \
-        # --zone "$GCE_INSTANCE_ZONE" \
-        # --container-image "gcr.io/$PROJECT_ID/$GCE_INSTANCE-image:$GITHUB_SHA"
+
+#   Message: unknown error: cannot find Chrome binary
+#   (Driver info: chromedriver=93.0.4577.63 (ff5c0da2ec0adeaed5550e6c7e98417dac77d98a-refs/branch-heads/4577@{#1135})
+# ,platform=Linux 5.4.0-1051-gcp x86_64)

@@ -70,3 +70,33 @@ docker build -t ps5-stock-checker .
 
 compatibility matrix for selenium
 https://support.leapwork.com/hc/en-us/articles/360004941392-Web-Browser-and-Driver-Compatibility-Matrix-LEAPWORK
+
+### Via vanilla VM startup script
+
+uses cron jobs to fire off a job every minute
+
+#### Useful Cron commands 
+
+Create new cron job without nano:
+
+```
+crontab -l | { cat; echo "* * * * * /app/cron_execute.sh >> /app/out.txt  2>&1"; } | crontab -
+```
+```
+* * * * * = cron scehdule (eg every minute here)
+/app/cron_execute.sh = path to script
+>> = pipe output
+/app/out.txt = where to pipe the output
+2>&1 = capture stderr and stdout
+
+```
+
+Delete all cron jobs 
+```
+crontab -r
+```
+
+Review cron logs for execution history
+```
+grep CRON /var/log/syslog
+```

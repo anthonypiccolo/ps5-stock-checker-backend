@@ -34,7 +34,7 @@ def stock_check(url, text_string=None, div_id=None, div_class=None):
     
     # chrome_options = webdriver.ChromeOptions()
     print(f"looking at website {url}...")
-    driver = webdriver.Chrome(chrome_options=set_chrome_settings())
+    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings())
     driver.get(url)
     match = None
     if div_id != None:

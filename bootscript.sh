@@ -13,7 +13,7 @@ apt-get -y update
 # installing git, python, pip
 apt-get install -y git
 python3 --version
-apt install -y python-pip
+apt install -y python3-pip
 # apt-get install -y python3.8 #already installed on ubuntu 18.04
 
 
@@ -57,8 +57,8 @@ git clone https://github.com/anthonypiccolo/ps5-stock-checker-backend /app
 
 apt install -y python3-pip
 
-pip3 install --upgrade pip
-pip3 install -r /app/requirements.txt
+pip install --upgrade pip
+pip install  --ignore-installed -r /app/requirements.txt
 
 
 
@@ -68,8 +68,10 @@ pip3 install -r /app/requirements.txt
 
 
 #create the cron job to run every minute
-crontab -l | { cat; echo "* * * * * python /app/main.py"; } | crontab -
-# RUN crontab -l | { cat; echo "* * * * * echo hello > /app/hello.txt"; } | crontab -
+crontab -l | { cat; echo "* * * * * python3 /app/main.py"; } | crontab -
+crontab -l | { cat; echo "* * * * * /app/cron_execute.sh >> /app/out.txt  2>&1"; } | crontab -
+
+
 #start the service 
 service cron start
 
