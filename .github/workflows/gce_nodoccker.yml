@@ -27,7 +27,8 @@ env:
 jobs:
   setup-build-publish-deploy:
     name: Setup, Build, Publish, and Deploy
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
+    #was  ubuntu-latest
 
     steps:
     - name: Checkout
