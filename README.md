@@ -71,6 +71,7 @@ docker build -t ps5-stock-checker .
 compatibility matrix for selenium
 https://support.leapwork.com/hc/en-us/articles/360004941392-Web-Browser-and-Driver-Compatibility-Matrix-LEAPWORK
 
+
 ### Via vanilla VM startup script
 
 uses cron jobs to fire off a job every minute
@@ -100,3 +101,12 @@ Review cron logs for execution history
 ```
 grep CRON /var/log/syslog
 ```
+
+Common issues:
+
+```Page up
+  GNU nano 2.9.3                                         out.txt                                                   
+/bin/sh: 1: /app/cron_execute.sh: Permission denied
+```
+fix with 
+`chmod +x /app/cron_execute.sh`

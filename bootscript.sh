@@ -68,7 +68,8 @@ pip install  --ignore-installed -r /app/requirements.txt
 
 
 #create the cron job to run every minute
-crontab -l | { cat; echo "* * * * * python3 /app/main.py"; } | crontab -
+# crontab -l | { cat; echo "* * * * * python3 /app/main.py"; } | crontab -
+chmod +x /app/cron_execute.sh
 crontab -l | { cat; echo "* * * * * /app/cron_execute.sh >> /app/out.txt  2>&1"; } | crontab -
 
 
@@ -77,4 +78,4 @@ service cron start
 
 
 echo "setup complete. Launched scraper"
-grep -m 1 “startup-script exit status” /var/log/syslog
+# grep -m 1 “startup-script exit status” /var/log/syslog
