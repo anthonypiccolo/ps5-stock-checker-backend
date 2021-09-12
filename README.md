@@ -64,7 +64,10 @@ _NOTE_ There's probably a way to do this via the cli. We should look into this.
 docker build -t ps5-stock-checker .
 
 ```
-
+Then 
+- go to your docker desktop app
+- in `images` select the image you built (ps5-stock-checker) and click `run`
+- to ssh into the container, click `Containers/Apps` on the side bar menu, then select the running container, and then `CLI`
 
 ### startup
 

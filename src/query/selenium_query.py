@@ -54,6 +54,7 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
         except:
             match = None
     
+    print(f"finished with matches? {match != None}")
     logging.info(f"finished with matches? {match != None}")
     time.sleep(1)
     driver.quit()

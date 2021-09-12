@@ -70,9 +70,9 @@ RUN pip3 install -r /app/requirements.txt
 ######
 ### Setup Cron job ###
 #####
-
+RUN chmod +x /app/cron_execute.sh
 #create the cron job to run every minute
-RUN crontab -l | { cat; echo "* * * * * python /app/main.py"; } | crontab -
+RUN crontab -l | { cat; echo "* * * * * python3 /app/main.py"; } | crontab -
 # RUN crontab -l | { cat; echo "* * * * * echo hello > /app/hello.txt"; } | crontab -
 #start the service 
 RUN service cron start
