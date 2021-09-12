@@ -90,6 +90,9 @@ crontab -l | { cat; echo "* * * * * /app/cron_execute.sh >> /app/out.txt  2>&1";
 /app/out.txt = where to pipe the output
 2>&1 = capture stderr and stdout
 
+check your logs with 
+nano /app/out.txt
+
 ```
 
 Delete all cron jobs 

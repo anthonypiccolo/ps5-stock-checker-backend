@@ -6,6 +6,7 @@ from selenium.webdriver.chrome.options import Options
 import time
 import pathlib
 import math, random
+import logging
 
 # def random_time(start=0,end=500):
 #     """ return a random number so we can look more organic for requests """
@@ -16,8 +17,11 @@ import math, random
 
 def set_chrome_settings():
     """ set up the chrome settings """
+    #interesting thread here https://intoli.com/blog/making-chrome-headless-undetectable/
     chrome_options = Options()
+    user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
     chrome_options.add_argument("--headless")
+    chrome_options.add_argument(f'user-agent={user_agent}')
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
@@ -25,7 +29,8 @@ def set_chrome_settings():
     
     return chrome_options
 
-def stock_check(url, text_string=None, div_id=None, div_class=None):
+
+def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     """ use headless browser"""
 
     #pip install selenium==2.53.0 
@@ -36,6 +41,7 @@ def stock_check(url, text_string=None, div_id=None, div_class=None):
     print(f"looking at website {url}...")
     driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings())
     driver.get(url)
+    logging.info(f"store: {store}: {driver.page_source[75]}") #log out top 75 chars of page
     match = None
     if div_id != None:
         try:
@@ -48,8 +54,8 @@ def stock_check(url, text_string=None, div_id=None, div_class=None):
         except:
             match = None
     
-    print(f"finished with matches? {match != None}")
-    time.sleep(5)
+    logging.info(f"finished with matches? {match != None}")
+    time.sleep(1)
     driver.quit()
     return match
 
