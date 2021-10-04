@@ -1,5 +1,5 @@
 from os import curdir
-from selenium import webdriver
+from seleniumwire import webdriver
 from selenium.webdriver.chrome.options import Options
 # from chromedriver_py import binary_path
 # import chromedriver_binary
@@ -14,6 +14,13 @@ import logging
 #     rand_number_secs = rand_number_ms/100
 #     return rand_number_secs
 
+options = {
+    'proxy': {
+        'http': 'http://username:password@host:port', 
+        'https': 'https://username:password@host:port',
+        'no_proxy': 'localhost,127.0.0.1' # excludes
+    }
+}
 
 def set_chrome_settings():
     """ set up the chrome settings """
@@ -39,7 +46,7 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     
     # chrome_options = webdriver.ChromeOptions()
     print(f"looking at website {url}...")
-    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings())
+    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings(), seleniumwire_options=options)
     driver.get(url)
     logging.info(f"store: {store}: {driver.page_source[75]}") #log out top 75 chars of page
     match = None
