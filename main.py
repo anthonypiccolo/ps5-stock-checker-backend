@@ -184,4 +184,4 @@ def ps5_stock_check(request):
 
     
 
-ps5_stock_check('Looking for ps5s...')
+#ps5_stock_check('Looking for ps5s...')
