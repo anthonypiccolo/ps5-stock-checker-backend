@@ -49,7 +49,8 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     
     # chrome_options = webdriver.ChromeOptions()
     print(f"looking at website {url}...")
-    driver = webdriver.uc(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings()) #seleniumwire_options=options)
+    #driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings()) #seleniumwire_options=options)
+    driver = uc.Chrome()
     driver.get(url)
     logging.info(f"store: {store}: {driver.page_source[75]}") #log out top 75 chars of page
     match = None
@@ -71,4 +72,4 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     return match
 
 
-#stock_check("https://www.whatismyip.com/")
+stock_check("https://www.whatismyip.com/")
