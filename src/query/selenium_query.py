@@ -72,4 +72,4 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     return match
 
 
-stock_check("https://www.whatismyip.com/")
+#stock_check("https://www.whatismyip.com/")
