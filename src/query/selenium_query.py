@@ -1,7 +1,8 @@
 from os import curdir
 from seleniumwire import webdriver
-from selenium.webdriver.chrome.options import Options
-import undetected_chromedriver.v2 as uc
+#from selenium.webdriver.chrome.options import Options
+#import undetected_chromedriver.v2 as uc
+from seleniumwire.undetected_chromedriver.v2 import Chrome, ChromeOptions
 # from chromedriver_py import binary_path
 # import chromedriver_binary
 import time
