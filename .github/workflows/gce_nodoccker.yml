@@ -18,6 +18,7 @@ on:
   push:
     branches:
     - main
+    - test-undetected-chrome
 
 env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
