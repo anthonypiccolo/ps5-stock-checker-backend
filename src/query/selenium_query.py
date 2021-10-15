@@ -1,6 +1,9 @@
 from os import curdir
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from seleniumwire import webdriver
+#from selenium.webdriver.chrome.options import Options
+#import undetected_chromedriver.v2 as uc
+from seleniumwire.undetected_chromedriver.v2 import Chrome, ChromeOptions
+import undetected_chromedriver.v2 as uc
 # from chromedriver_py import binary_path
 # import chromedriver_binary
 import time
@@ -14,13 +17,22 @@ import logging
 #     rand_number_secs = rand_number_ms/100
 #     return rand_number_secs
 
+# Below is if we want to use seleniumwire and leverage a proxy service
+
+# options = {
+#     'proxy': {
+#         'http': 'http://user:pass@ip:port', 
+#         'https': 'https://user:pass@ip:port',
+#         'no_proxy': 'localhost,127.0.0.1' # excludes
+#     }
+# }
 
 def set_chrome_settings():
     """ set up the chrome settings """
     #interesting thread here https://intoli.com/blog/making-chrome-headless-undetectable/
     chrome_options = Options()
     user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
-    chrome_options.add_argument("--headless")
+    #chrome_options.add_argument("--headless")
     chrome_options.add_argument(f'user-agent={user_agent}')
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
@@ -39,7 +51,8 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     
     # chrome_options = webdriver.ChromeOptions()
     print(f"looking at website {url}...")
-    driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings())
+    #driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings()) #seleniumwire_options=options)
+    driver = uc.Chrome()
     driver.get(url)
     logging.info(f"store: {store}: {driver.page_source[75]}") #log out top 75 chars of page
     match = None
@@ -61,4 +74,4 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     return match
 
 
-# stock_check('https://www.google.com')
+#stock_check("https://www.whatismyip.com/")
