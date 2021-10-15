@@ -48,7 +48,7 @@ jobs:
         --zone "$GCE_INSTANCE_ZONE" \
         --machine-type "e2-micro" \
         --metadata-from-file startup-script=bootscript.sh \
-        --image=ubuntu-1804-bionic-v20210825 \
+        --image=ubuntu-2110-impish-v20211014 \
         --image-project=ubuntu-os-cloud \
         --maintenance-policy=MIGRATE \
         --scopes=https://www.googleapis.com/auth/datastore,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/trace.append,https://www.googleapis.com/auth/devstorage.write_only \
