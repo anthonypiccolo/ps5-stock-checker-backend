@@ -10,6 +10,8 @@ import time
 import pathlib
 import math, random
 import logging
+import requests
+
 
 # def random_time(start=0,end=500):
 #     """ return a random number so we can look more organic for requests """
@@ -41,6 +43,11 @@ def set_chrome_settings():
     
     return chrome_options
 
+def notify(text_content):
+    url = 'https://discord.com/api/webhooks/898508639319523328/Yrk-07ixQ09MW5gyAC0FFqxaXuG2l2lvn3wCMeMvCuYOP3GSNWht0MgAv401ggsmPoyx'
+    myobj = {"content": f"{text_content}"}
+    requests.post(url, json = myobj)
+
 
 def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     """ use headless browser"""
@@ -55,6 +62,7 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     driver = uc.Chrome()
     driver.get(url)
     logging.info(f"store: {store}: {driver.page_source[75]}") #log out top 75 chars of page
+    notify(f"store: {store}: {driver.page_source[75]}")
     match = None
     if div_id != None:
         try:
