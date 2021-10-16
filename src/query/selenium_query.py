@@ -11,7 +11,8 @@ import pathlib
 import math, random
 import logging
 import requests
-import os 
+import os
+from dotenv import load_dotenv
 
 
 # def random_time(start=0,end=500):
@@ -22,7 +23,11 @@ import os
 
 # Below is if we want to use seleniumwire and leverage a proxy service
 
+load_dotenv()
+
 PROXY_CREDS = os.environ.get('PROXY_CREDS')
+
+print(PROXY_CREDS)
 
 options = {
      'proxy': {
@@ -87,4 +92,4 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     return match
 
 
-#stock_check("https://whatismyip.com")
+stock_check("https://whatismyip.com")
