@@ -1,7 +1,7 @@
 
 # discord.py==1.7.3          # discord dependencies
 # requests  # no longer needed if we're using selenium
-# bs4  #no longer needed if we're using selenium
+bs4  #no longer needed if we're using selenium
 #constants
 google-cloud-storage
 #google-cloud-bigquery
@@ -19,3 +19,4 @@ selenium-wire
 #undetected-chromedriver
 requests
 dotenv
+fake_useragent

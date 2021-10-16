@@ -13,6 +13,8 @@ import logging
 import requests
 import os
 from dotenv import load_dotenv
+from bs4 import BeautifulSoup
+from fake_useragent import UserAgent
 
 
 # def random_time(start=0,end=500):
@@ -39,14 +41,17 @@ def set_chrome_settings():
     """ set up the chrome settings """
     #interesting thread here https://intoli.com/blog/making-chrome-headless-undetectable/
     chrome_options = Options()
-    user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
+    ua = UserAgent(cache=False)
+    user_agent = ua.random
+    #user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--headless")
     chrome_options.add_argument(f'user-agent={user_agent}')
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--window-size=1920,1200")
+    chrome_options.add_argument("--window-size=340,420")
     chrome_options.add_argument("--remote-debugging-port=9222")
+    chrome_options.add_argument("--blink-settings=imagesEnabled=false")
 
 
     return chrome_options
@@ -69,8 +74,10 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     #driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings()) #seleniumwire_options=options)
     driver = webdriver.Chrome(chrome_options=set_chrome_settings(), seleniumwire_options=options)
     driver.get(url)
-    logging.info(f"store: {store}: {driver.page_source[0:75]}") #log out top 75 chars of page
-    notify(f"store: {store}: {driver.page_source[0:75]}")
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
+    title = soup.find('title')
+    logging.info(f"store: {store}: {title.text}") #log out top 75 chars of page
+    notify(f"store: {store}: {title.text}")
     match = None
     if div_id != None:
         try:
@@ -90,4 +97,4 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     return match
 
 
-stock_check("https://whatismyip.com")
+#stock_check("https://whatismyip.com")

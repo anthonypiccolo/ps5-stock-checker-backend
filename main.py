@@ -45,8 +45,9 @@ def amazon_digital():
     amazon_url = "https://www.amazon.com.au/PlayStation-5-Digital-Edition-Console/dp/B08HLWDMFQ"
     amazon_text_string = "In stock"
     amazon_div_id = "availability"
+    store = "amazon"
     ##return stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id)
-    if query_engine.stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id):
+    if query_engine.stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id, store=store):
         return amazon_url
     else:
         return ""
@@ -57,8 +58,9 @@ def amazon_disc():
     amazon_url = "https://www.amazon.com.au/PlayStation-5-Console/dp/B08HHV8945"
     amazon_text_string = "In stock"
     amazon_div_id = "availability"
+    store = "amazon"
     ##return stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id)
-    if query_engine.stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id):
+    if query_engine.stock_check(url=amazon_url, text_string=amazon_text_string, div_id=amazon_div_id, store=store):
         return amazon_url
     else:
         return ""
@@ -68,7 +70,8 @@ def target_digital():
     target_url = "https://www.target.com.au/p/playstation-reg-5-console-digital-edition/64226170"
     target_text_string = "Add to basket"
     target_div_class = "AddCart"
-    if query_engine.stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
+    store = "target"
+    if query_engine.stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class, store=store):
         return target_url
     else:
         return ""
@@ -78,7 +81,8 @@ def target_disc():
     target_url = "https://www.target.com.au/p/playstation-reg-5-console/64226187"
     target_text_string = "Add to basket"
     target_div_class = "AddCart"
-    if query_engine.stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class):
+    store = "target"
+    if query_engine.stock_check(url=target_url, text_string=target_text_string, div_class=target_div_class, store=store):
         return target_url
     else:
         return ""
@@ -88,7 +92,8 @@ def bigw_digital():
     bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
     bigw_text_string = "blah"
     bigw_div_class = "ProductAddToCart"
-    if query_engine.stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
+    store = "bigw"
+    if query_engine.stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class, store=store):
         return bigw_url
     else:
         return ""
@@ -98,7 +103,8 @@ def bigw_disc():
     bigw_url = "https://www.bigw.com.au/product/playstation-5-digital-edition-console/p/124626/"
     bigw_text_string = "blah"
     bigw_div_class = "ProductAddToCart"
-    if query_engine.stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class):
+    store = "bigw"
+    if query_engine.stock_check(url=bigw_url, text_string=bigw_text_string, div_class=bigw_div_class, store=store):
         return bigw_url
     else:
         return ""
