@@ -11,6 +11,7 @@ import pathlib
 import math, random
 import logging
 import requests
+import os 
 
 
 # def random_time(start=0,end=500):
@@ -21,10 +22,15 @@ import requests
 
 # Below is if we want to use seleniumwire and leverage a proxy service
 
+USER = os.getenv('API_USER')
+PASSWORD = os.environ.get('API_PASSWORD')
+
+PROXY_CREDS = os.environ.get('PROXY_CREDS')
+
 options = {
      'proxy': {
-         'http': 'http://rqscrod5:goh7S9clIpGFqAQX@52.22.195.164:31112', 
-         'https': 'https://rqscrod5:goh7S9clIpGFqAQX@52.22.195.164:31112',
+         'http': f'http://{PROXY_CREDS}@52.22.195.164:31112', 
+         'https': f'https://{PROXY_CREDS}@52.22.195.164:31112',
          'no_proxy': 'localhost,127.0.0.1' # excludes
      }
 }
