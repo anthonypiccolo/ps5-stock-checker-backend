@@ -26,8 +26,8 @@ PROXY_CREDS = os.environ.get('PROXY_CREDS')
 
 options = {
      'proxy': {
-         'http': f'http://rqscrod5:goh7S9clIpGFqAQX@52.22.195.164:31112', 
-         'https': f'https://rqscrod5:goh7S9clIpGFqAQX@52.22.195.164:31112',
+         'http': f'http://{PROXY_CREDS}@52.22.195.164:31112', 
+         'https': f'https://{PROXY_CREDS}@52.22.195.164:31112',
          'no_proxy': 'localhost,127.0.0.1' # excludes
      }
 }
