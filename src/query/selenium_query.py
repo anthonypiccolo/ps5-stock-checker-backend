@@ -22,9 +22,6 @@ import os
 
 # Below is if we want to use seleniumwire and leverage a proxy service
 
-USER = os.getenv('API_USER')
-PASSWORD = os.environ.get('API_PASSWORD')
-
 PROXY_CREDS = os.environ.get('PROXY_CREDS')
 
 options = {
@@ -40,8 +37,8 @@ def set_chrome_settings():
     #interesting thread here https://intoli.com/blog/making-chrome-headless-undetectable/
     chrome_options = Options()
     user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
-    #options.add_argument("--no-sandbox")
-    #options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--headless")
     chrome_options.add_argument(f'user-agent={user_agent}')
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--disable-dev-shm-usage")
