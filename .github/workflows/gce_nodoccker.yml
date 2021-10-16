@@ -24,6 +24,7 @@ env:
   PROJECT_ID: ${{ secrets.GCE_PROJECT }}
   GCE_INSTANCE: gce-githubactions-nodocker-vm  # TODO: update to instance name
   GCE_INSTANCE_ZONE: us-west1-a    # TODO: update to instance zone
+  PROXY_CREDS: ${{ secrets.PROXY_CREDS }}
 
 jobs:
   setup-build-publish-deploy:
