@@ -1,9 +1,9 @@
 from os import curdir
-#from seleniumwire import webdriver
-#from selenium.webdriver.chrome.options import Options
+from seleniumwire import webdriver
+from selenium.webdriver.chrome.options import Options
 #import undetected_chromedriver.v2 as uc
-from seleniumwire.undetected_chromedriver.v2 import Chrome, ChromeOptions
-import undetected_chromedriver.v2 as uc
+#from seleniumwire.undetected_chromedriver.v2 import Chrome, ChromeOptions
+#import undetected_chromedriver.v2 as uc
 # from chromedriver_py import binary_path
 # import chromedriver_binary
 import time
@@ -21,27 +21,27 @@ import requests
 
 # Below is if we want to use seleniumwire and leverage a proxy service
 
-# options = {
-#     'proxy': {
-#         'http': 'http://user:pass@ip:port', 
-#         'https': 'https://user:pass@ip:port',
-#         'no_proxy': 'localhost,127.0.0.1' # excludes
-#     }
-# }
+options = {
+     'proxy': {
+         'http': 'http://rqscrod5:goh7S9clIpGFqAQX@52.22.195.164:31112', 
+         'https': 'https://rqscrod5:goh7S9clIpGFqAQX@52.22.195.164:31112',
+         'no_proxy': 'localhost,127.0.0.1' # excludes
+     }
+}
 
 def set_chrome_settings():
     """ set up the chrome settings """
     #interesting thread here https://intoli.com/blog/making-chrome-headless-undetectable/
-    options = uc.ChromeOptions()
+    chrome_options = Options()
     user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
-    options.add_argument("--no-sandbox")
-    options.add_argument("--headless")
-    options.add_argument(f'user-agent={user_agent}')
-    options.add_argument("--disable-gpu")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--window-size=1920,1200")
-    
-    return options
+    #options.add_argument("--no-sandbox")
+    #options.add_argument("--headless")
+    chrome_options.add_argument(f'user-agent={user_agent}')
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--window-size=1920,1200")
+
+    return chrome_options
 
 def notify(text_content):
     url = 'https://discord.com/api/webhooks/898508639319523328/Yrk-07ixQ09MW5gyAC0FFqxaXuG2l2lvn3wCMeMvCuYOP3GSNWht0MgAv401ggsmPoyx'
@@ -59,7 +59,7 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     # chrome_options = webdriver.ChromeOptions()
     print(f"looking at website {url}...")
     #driver = webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",chrome_options=set_chrome_settings()) #seleniumwire_options=options)
-    driver = uc.Chrome(options=set_chrome_settings())
+    driver = webdriver.Chrome(chrome_options=set_chrome_settings(), seleniumwire_options=options)
     driver.get(url)
     logging.info(f"store: {store}: {driver.page_source[0:75]}") #log out top 75 chars of page
     notify(f"store: {store}: {driver.page_source[0:75]}")
@@ -82,4 +82,4 @@ def stock_check(url, text_string=None, div_id=None, div_class=None, store=None):
     return match
 
 
-#stock_check("https://www.whatismyip.com/")
+#stock_check("https://whatismyip.com")
