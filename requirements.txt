@@ -18,5 +18,5 @@ selenium
 selenium-wire
 #undetected-chromedriver
 requests
-dotenv
-fake_useragent
+#dotenv
+fake-useragent
