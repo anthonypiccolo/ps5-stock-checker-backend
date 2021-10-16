@@ -27,8 +27,6 @@ load_dotenv()
 
 PROXY_CREDS = os.environ.get('PROXY_CREDS')
 
-print(PROXY_CREDS)
-
 options = {
      'proxy': {
          'http': f'http://{PROXY_CREDS}@52.22.195.164:31112', 
