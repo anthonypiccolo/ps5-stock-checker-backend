@@ -18,4 +18,3 @@ selenium
 selenium-wire
 #undetected-chromedriver
 requests
-os
