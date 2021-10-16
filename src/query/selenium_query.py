@@ -14,7 +14,8 @@ import requests
 import os
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
-from fake_useragent import UserAgent
+from random_user_agent.user_agent import UserAgent
+from random_user_agent.params import SoftwareName, OperatingSystem
 
 
 # def random_time(start=0,end=500):
@@ -40,10 +41,15 @@ options = {
 def set_chrome_settings():
     """ set up the chrome settings """
     #interesting thread here https://intoli.com/blog/making-chrome-headless-undetectable/
-    chrome_options = Options()
-    ua = UserAgent(cache=False)
-    user_agent = ua.random
+    software_names = [SoftwareName.CHROME.value]
+    operating_systems = [OperatingSystem.WINDOWS.value, OperatingSystem.LINUX.value]   
+    user_agent_rotator = UserAgent(software_names=software_names, operating_systems=operating_systems, limit=200)
+    # Get list of user agents.
+    user_agents = user_agent_rotator.get_user_agents()
+    # Get Random User Agent String.
+    user_agent = user_agent_rotator.get_random_user_agent()
     #user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
+    chrome_options = Options()
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--headless")
     chrome_options.add_argument(f'user-agent={user_agent}')
